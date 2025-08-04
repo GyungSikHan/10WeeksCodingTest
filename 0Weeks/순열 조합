@@ -1,0 +1,64 @@
+순열
+    순서와 상관 O    
+    반드시 정렬한뒤 사용해야 함
+    next_permutation(begin, end) 오름차순
+    prev_permutation(begin, end) 내림차순
+    nPr = n! / (n - r)! 개의 경우의 수 존재
+    코드
+    int a[] = {1, 2, 3};
+    do
+    {
+        for(int i : a)
+        cout << i << " ";
+        cout << endl;
+    }while(next_permutation(a, a + 3));
+
+    재귀로 만들기
+    void MakePermutation(int n, int r, int depth)
+    {
+        cout<<n<<":"<<r<<":"<<depth<<endl;
+        if(r == depth)
+        {
+            //logic
+            return;
+        }
+        for(int i = depth; i < n; i ++)
+        {
+            swap(v[i], v[depth]);
+            MakePermutation(n,r,depth+1);
+            swap(v[i], v[depth]);
+        }
+    }
+
+조합
+    순서와 상관 X 조합
+    nCr = n! / r!(n-r)!
+    
+    재귀로(4개 이상)
+    void Combi(int start, vector<int> b)
+    {
+        if(b.size() == k)
+        {
+            //logic
+            return;
+        }
+        for(int i = start+1; i<n; i++)
+        {
+            b.push_back(i);
+            combi(i,b);
+            b.pop_back();
+        }
+        return;
+    }
+
+    중첩 for문(3개 이하)
+    for(int i = 0; i < n; i++)
+    {
+        for(int j = 0; j<i; j++)
+        {
+            for(int k = 0; k < j; k++)
+            {
+                cout<<i << j<< k<<endl;
+            }
+        }
+    }
