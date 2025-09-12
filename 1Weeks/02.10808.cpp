@@ -1,4 +1,4 @@
-//https://www.acmicpc.net/status?user_id=gksrudtlr3&problem_id=10808&from_mine=1
+//https://www.acmicpc.net/problem/10808
 #include <iostream>
 #include <string>
 #include <vector>

@@ -3,59 +3,64 @@
 #include <queue>
 
 using namespace std;
-const int max_n = 500000;
-int visited[2][max_n + 4], a, b, ok, turn = 1;
+
+const int INF = 500000;
+int n, k, turn = 1;
+int visited[2][INF+4];
+bool mit;
 
 int main()
 {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
-	cin >> a >> b;
-	if (a == b)
+	cin >> n >> k;
+	if (k == n)
 	{
-		cout << 0 << "\n"; return 0;
+		cout << 0;
+		return 0;
 	}
+
+	visited[0][n] = 1;
 	queue<int> q;
-	visited[0][a] = 1;
-	q.push(a);
-	while (q.size()) 
+	q.push(n);
+
+	while (q.empty() == false)
 	{
-		b += turn;
-		if (b > max_n)break;
-		if (visited[turn % 2][b]) 
+		k += turn;
+		if (k > INF)
+			break;
+		if (visited[turn%2][k] != 0)
 		{
-			ok = true;
+			mit = true;
 			break;
 		}
-		int qSize = q.size();
-		for (int i = 0; i < qSize; i++) 
+
+		int size = q.size();
+		for (int i = 0; i < size; i++)
 		{
 			int x = q.front();
 			q.pop();
-			for (int nx : {x + 1, x - 1, x * 2}) 
+
+			for (int nx: {x-1,x +1,x*2})
 			{
-				if (nx < 0 || nx > max_n || visited[turn % 2][nx]) 
+				if (nx < 0 || nx > INF || visited[turn % 2][nx])
 					continue;
-
 				visited[turn % 2][nx] = visited[(turn + 1) % 2][x] + 1;
-
-				if (nx == b)
+				if (nx == k)
 				{
-					ok = 1;
+					mit = true;
 					break;
 				}
 				q.push(nx);
 			}
-			if (ok)break;
+			if (mit == true)
+				break;
 		}
-		if (ok)
+		if (mit == true)
 			break;
 		turn++;
 	}
-	if (ok)
-		cout << turn << "\n";
+
+	if (mit == true)
+		cout << turn;
 	else
-		cout << -1 << "\n";
-	return 0;
+		cout << -1;
 }
