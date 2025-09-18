@@ -52,7 +52,7 @@ int main()
 		}
 	}
 
-	for (int i = 1; i < (1<<n) - 1; i++)
+	for (int i = 1; i < (1<<n); i++)
 	{
 		fill(comp,comp+11, 0);
 		fill(visited,visited+11, 0);
