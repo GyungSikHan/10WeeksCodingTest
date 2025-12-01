@@ -40,10 +40,10 @@
 # debug information files
 *.dwo
 
-# VS Code ???? ????
+# VS Code 부산물
 .vscode/
 
-# mac os ???? ????
+# mac os 부산물
 *.dSYM/
 *.dSYM/**
 build/
