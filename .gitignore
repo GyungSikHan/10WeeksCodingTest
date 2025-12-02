@@ -40,5 +40,10 @@
 # debug information files
 *.dwo
 
-# VS Code ¼³Á¤ ¹«½Ã
+# VS Code ë¶€ì‚°ë¬¼
 .vscode/
+
+# mac os ë¶€ì‚°ë¬¼
+*.dSYM/
+*.dSYM/**
+build/
