@@ -1,3 +1,4 @@
+//V //첫번째 if문에서 t와t2의 합이 s보다 크거나 같다면 안된다
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -9,14 +10,7 @@ int main()
     cin>>n;
     cin>>s;
 
-    for(int i = 0; i < s.size(); i++)
-    {
-        if(s[i] == '*')
-        {
-            len = i;
-            break;
-        }
-    }
+    len = s.find('*');
 
     string t = s.substr(0, len);
     string t2 = s.substr(len+1);
@@ -25,8 +19,9 @@ int main()
     {
         cin>>s2;
 
-        if(s2.size() < t.size() || s2.size() < t2.size() )
+        if(s2.size() < t.size() + t2.size() )
             cout<<"NE\n";
+
         else if(s2.substr(0, t.size()) != t|| s2.substr(s2.size()-t2.size()) != t2)
             cout<<"NE\n";
         else
