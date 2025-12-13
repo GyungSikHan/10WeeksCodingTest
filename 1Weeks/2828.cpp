@@ -3,7 +3,7 @@
 using namespace std;
 
 int n,m,j;
-int arr[10];
+vector<int>arr
 vector<int>v;
 
 int main()
@@ -15,7 +15,7 @@ int main()
     {
         int a{};
         cin>>a;
-        arr[a]++;
+        arr.push_back(a);
     }
 
     for(int i = 0; i < n; i++)

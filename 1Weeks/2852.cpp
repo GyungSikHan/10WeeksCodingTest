@@ -1,97 +1,68 @@
 #include <bits/stdc++.h>
-
+#include<string>
 using namespace std;
 
-const string maxTime = "48:00";
-int n, team;
-string t;
-stack<int> st;
-string sA, sB;
-string retA, retB;
+int n, t, t1,t2, sum1, sum2;
+string times, prvs;
 
-int Mi(string a)
+int ChangeString(string s, string s2)
 {
-    int s = a.find(":");
-    string te = a.substr(0, s);
-    string te2 = a.substr(s + 1);
+    int data = s.find(':');
+    int a = stoi(s.substr(0,data))*60 + stoi(s.substr(data+1));
+    int b = stoi(s2.substr(0,data))*60+stoi(s2.substr(data+1));
 
-    return (stoi(te) * 60) + stoi(te2);
+    return b - a;
 }
-
-int ChangeT(string a, string b)
+string ChangeInt(int i)
 {
-    //cout<<a<<" "<<b<<endl;
-    int ateam = Mi(a);
-    int bteam = Mi(b);
-    //cout << bteam << "-" << ateam << "=" << bteam - ateam << endl;
-    return bteam - ateam;
+    string m =to_string(i/60);
+    string s = to_string(i%60);
+
+    if(m.size() == 1)
+        m = "0"+m;
+    if(s.size() == 1)
+        s = "0"+s;
+    return m+":"+s;
 }
-
-string ChangeS(string a, string b)
-{
-    int temp = ChangeT(a, b);
-
-    string mm = to_string(temp / 60);
-    string ss = to_string(temp % 60);
-    if (mm.size() == 1)
-        mm = "0" + mm;
-    if (ss.size() == 1)
-        ss = "0" + ss;
-    return mm + ":" + ss;
-}
-
 int main()
 {
-    cin >> n;
+    cin>>n;
 
-    while (n--)
+    for(int i = 0; i<n;i++)
     {
-        cin >> team >> t;
+        cin>>t>>times;
 
-        if (st.empty() == true || st.top() == team)
+        if(t1 > t2)
         {
-            st.push(team);
-            if (team == 1 && sA == "")
-            {
-                sA = t;
-            }
-            else if (team == 2 && sB == "")
-            {
-                sB = t;
-            }
-        }
-        else
-        {
-            int temp = st.top();
-            st.pop();
-            if (st.empty() == true)
-            {
-                if (temp == 1)
-                {
-                    retA = ChangeS(sA, t);
-                    sA = "";
-                }
-                else
-                {
-                    retB = ChangeS(sB, t);
-                    sB = "";
-                }
-            }
+            sum1 += ChangeString(prvs, times);
             
         }
+        else if(t2 > t1)
+        {
+            sum2 += ChangeString(prvs, times);
+        }
+
+        if(t == 1)
+        {
+            t1++;
+        }
+        else 
+        {
+            t2++;
+        }
+
+        prvs = times;
     }
-    if (sA != "")
+
+    if(t1 > t2)
     {
-        retA = ChangeS(sA, maxTime);
-        if (retB == "")
-            retB = "00:00";
+        sum1+=ChangeString(prvs, "48:00");
     }
-    if (sB != "")
+    else if(t2 > t1)
     {
-        retB = ChangeS(sB, "48:00");
-        if (retA == "")
-            retA = "00:00";
+        sum2+=ChangeString(prvs, "48:00");
     }
-    cout << retA << "\n";
-    cout << retB << "\n";
+
+    cout<<ChangeInt(sum1)<<"\n";
+    cout<<ChangeInt(sum2)<<"\n";
 }
