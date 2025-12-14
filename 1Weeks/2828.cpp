@@ -1,16 +1,16 @@
-#include<bits/std.c++.h>
+#include<bits/stdc++.h>
 
 using namespace std;
 
 int n,m,j;
-vector<int>arr
-vector<int>v;
+vector<int>arr;
+int s=1,e,ret = 0;
 
 int main()
 {
     cin>>n>>m;
     cin>>j;
-    v.resize(m,0);
+    
     for(int i = 0; i < j; i++)
     {
         int a{};
@@ -18,9 +18,23 @@ int main()
         arr.push_back(a);
     }
 
-    for(int i = 0; i < n; i++)
+    e = m;
+    for(int i = 0; i < j; i++)
     {
-        
+        if(s > arr[i])
+        {
+            ret += s-arr[i];
+            e -= s-arr[i];
+            s = arr[i];
+        }
+        else if(e < arr[i])
+        {
+            ret += arr[i] - e;
+            s += arr[i] - e;
+            e = arr[i];
+        }
+        //cout << s << " : "  << e << "\n";
     }
 
+    cout<<ret;
 }
