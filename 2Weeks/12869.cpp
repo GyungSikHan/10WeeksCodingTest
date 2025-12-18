@@ -1,7 +1,11 @@
+//x
 #include<bits/stdc++.h>
 
 using namespace std;
-
+struct SCV
+{
+    int a, b, c;
+};
 int attack[6][3]
 {
     {9,3,1}, {9,1,3},
@@ -14,31 +18,39 @@ int scv[3];
 int arr[61][61][61];
 int ret = 987654321;
 
-void Solution(int a, int b, int c, int count)
+void Solution(int a, int b, int c)
 {
-    if(a == 0 && b == 0 && c == 0)
-    {
-        ret= min(ret, arr[a][b][c] -1);
-        return;
-    }
+    queue<SCV> qu;
+    qu.push({a,b,c});
 
-    for(int i = 0; i < 6; i++)
+    arr[a][b][c] = 1;
+    while(qu.empty() == false)
     {
-        int temp = a - attack[i][0];
-        int temp2 = b - attack[i][1];
-        int temp3 = c - attack[i][2];
-        if(temp <=0)
-            temp = 0;
-        if(temp2 <= 0)
-            temp2 = 0;
-        if(temp3 <= 0)
-            temp3 = 0;
-        if(arr[temp][temp2][temp3] != 0 && arr[temp][temp2][temp3] < arr[a][b][c] + 1)
-            continue;
-        arr[temp][temp2][temp3] = arr[a][b][c] + 1;
-
-        //cout<<temp <<" "<<temp2<<" "<<temp3<<endl;
-        Solution(temp, temp2, temp3, count+1);
+        int ca = qu.front().a;
+        int cb = qu.front().b;
+        int cc = qu.front().c;
+        qu.pop();
+        if(ca == 0 && cb == 0 && cc == 0)
+        {
+            ret = arr[ca][cb][cc];
+            break;
+        }
+        for(int i = 0; i < 6; i ++)
+        {
+            int na = ca-attack[i][0];
+            int nb = cb-attack[i][1];
+            int nc = cc - attack[i][2];
+            if(na <=0)
+                na = 0;
+            if(nb <= 0)
+                nb = 0;
+            if(nc <= 0)
+                nc = 0;
+            if(arr[na][nb][nc] != 0)
+                continue;
+            arr[na][nb][nc] = arr[ca][cb][cc]+1;
+            qu.push({na,nb,nc});
+        }
     }
 }
 
@@ -51,7 +63,7 @@ int main()
     }
     
     arr[scv[0]][scv[1]][scv[2]] = 1;
-    Solution(scv[0],scv[1],scv[2],1);
+    Solution(scv[0],scv[1],scv[2]);
 
-    cout<<ret;
+    cout<<ret-1;
 }
