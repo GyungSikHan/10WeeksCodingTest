@@ -1,29 +1,16 @@
-#include<bits/stdc++.h>
-
-using namespace std;
-
-int n;
-int arr[104];
-float aver;
-
-int main()
-{
-    cin>>n;
-
-    for(int i = 0; i < n; i++)
-    {
-        cin>>arr[i];
-        aver += arr[i];
-    }
-    
-    sort(arr, arr + n);
-
-    for(int i = 0; i < n; i++)
-    {
-        cout<<arr[i]<<" ";
-    }
-    cout<<endl;
-
-    aver/=n;
-    cout<<fixed<<setprecision(2)<<aver;
+#include <bits/stdc++.h>
+using namespace std;  
+const int n = 4;
+int main() {   
+	string a[n] = {"사과", "딸기", "포도", "배"};
+	for(int i = 0; i < (1 << n); i++){
+		string ret = "";
+		for(int j = 0; j < n; j++){
+			if(i & (1 << j)){
+				ret += (a[j] + " ");
+			}
+		}
+		cout << ret << '\n';
+	} 
+    return 0;
 }
