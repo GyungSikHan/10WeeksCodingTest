@@ -3,37 +3,27 @@
 using namespace std;
 
 string s;
-
+bool b{};
 int main()
 {
     cin>>s;
-    bool b{};
-    while(s != "")
+    while(s.size() != 0)
     {
-        if(s.find("pi") != string::npos)
-        {
-            size_t i = s.find("pi");
-            s.erase(i, 2);
-        }
-        else if(s.find("ka") != string::npos)
-        {
-            size_t i = s.find("ka");
-            s.erase(i,2);
-        }
-        else if(s.find("chu") != string::npos)
-        {
-            size_t i = s.find("chu");            
-            s.erase(i, 3);
-        }
+        if(s.substr(0,2) == "pi")
+            s = s.substr(2);
+        else if(s.substr(0,2) == "ka")
+            s = s.substr(2);
+        else if(s.substr(0,3) == "chu")
+            s = s.substr(3);
         else
         {
             b = true;
-            break;;
+            break;
         }
     }
 
     if(b == true)
         cout<<"NO";
-    else 
+    else
         cout<<"YES";
 }
