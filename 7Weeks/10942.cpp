@@ -1,46 +1,40 @@
 #include<bits/stdc++.h>
-
 using namespace std;
-
-int n, m, s, e;
+int n, m, s, e,dp[2004][2004];
 vector<int> v;
 
-bool IsP(int start, int end)
+int main() 
 {
-    if(start == end)
-        return true;
-    while(s != e){
-        if(v[s] != v[e]){
-            return false;
-        }s++; e--;
-    }
-    dp[i][i] = 1; 
-    dp[i][i + 1] = 1;
-    for(int i = 0; i < n; i++){
-        for(int j = i + 1; j < n; j++){
-            if(){
-                dp[i][j] = 1;
-            }
-        }
-    }
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	cin >> n;
 
-    return true;
-}
-
-int main()
-{
-    cin>>n;
-    v.resize(n+1, 0);
-    for(int i = 1; i <= n; i++)
-    {
-        cin>>v[i];
-    }
-
-    cin>>m;
-
-    for(int i = 0; i < m; i++)
-    {
-        cin>>s>>e;
-        cout<<IsP(s,e)<<endl;
-    }
+	v.resize(n+1,0);
+	for (int i = 1; i <= n; i++) 
+	{
+		cin >> v[i];
+	}
+	for (int i = 1; i <= n; i++) 
+	{
+		dp[i][i] = 1;
+	}
+	for (int i = 1; i < n; i++) 
+	{
+		if (v[i] == v[i + 1])
+			dp[i][i + 1] = 1;
+	}
+	for (int size = 2; size <= n; size++) 
+	{
+		for (int i = 1; i <= n - size; i++) 
+		{
+			if (v[i] == v[i + size] && dp[i + 1][i + size - 1])
+				dp[i][i + size] = 1;
+		}
+	}
+	cin >> m;
+	while (m--) {
+		cin >> s>> e;
+		cout << dp[s][e] << "\n";
+	}
 }

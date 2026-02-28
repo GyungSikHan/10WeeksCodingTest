@@ -52,3 +52,44 @@ build/
 알고리즘 개념교안.pdf
 알고리즘 문제해설.pdf
 알고리즘교안.pdf
+
+# vs
+# 빌드 결과물
+Debug/
+Release/
+x64/
+x86/
+build/
+
+# 중간 파일
+*.obj
+*.o
+*.pch
+*.pdb
+*.ilk
+*.idb
+
+# 실행 파일 / 라이브러리
+*.exe
+*.dll
+*.lib
+*.exp
+
+# 로그 / 캐시
+*.log
+*.tlog
+*.lastbuildstate
+
+# Visual Studio 캐시
+.vs/
+*.VC.db
+*.VC.opendb
+
+# 사용자 설정
+*.user
+*.suo
+
+*.sln
+*.slnx
+*.vcxproj
+*.vcxproj.filters
