@@ -1,67 +1,82 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
-int dy[4]{ 0,-1,0,1 }, dx[4]{ -1,0,1,0 };
-vector<pair<pair<int, int>, int>> v;
-int maps[10][10], visited[10][10];
-int zeroCount{};
-vector<pair<int, int>> v2;
 
-int go(int y, int x)
+int ma[14][14], ret =987654321;
+map<int, int> m;
+
+bool check(int y, int x, int cnt)
 {
-	if (visited[y][x] != 0)
-		return 0;
-
-	queue<pair<int, int>>qu;
-	qu.push({ y,x });
-	visited[y][x] = 1;
-	int vTemp[10][10];
-	memcpy(vTemp, visited, sizeof(vTemp));
-
-	while (qu.empty() == false)
+	if(y+cnt > 10 || x +cnt > 10)
+		return false;
+	
+	for(int i = y; i < y+cnt; i++)
 	{
-		int curry = qu.front().first;
-		int currx = qu.front().second;
-		qu.pop();
-		for (int i = 0; i<4; i++)
+		for(int j = x; j < x+cnt; j++)
 		{
-			int ny = dy[i] + curry;
-			int nx = dx[i] + currx;
-			if (ny<0 || ny>=10||nx<0||nx>= 10)
-				continue;
-			if (vTemp[ny][nx] != 0)
-				continue;
-
-			qu.push({ ny,nx });
-			vTemp[ny][nx] += vTemp
+			if(ma[i][j] == 0)
+				return false;
 		}
 	}
+	return true;
+}
+void draw(int y, int x, int cnt, int value)
+{
+	for(int i = y; i < y+cnt; i++)
+	{
+		for(int j =x; j < x+cnt; j++)
+		{
+			ma[i][j] = value;
+		}
+	}
+}
+void dfs(int y, int x, int cnt)
+{
+	if(cnt > ret)
+		return;
+	if(x == 10)
+	{
+		dfs(y+1, 0, cnt);
+		return;
+	}
+	if(y == 10)
+	{
+		ret = min(cnt, ret);
+		return;
+	}
+
+	if(ma[y][x] == 0)
+	{
+		dfs(y,x+1,cnt);
+		return;
+	}
+
+	for(int i = 5; i >= 1; i--)
+	{
+		if(m[i] == 5)
+			continue;
+		if(check(y,x,i))
+		{
+			m[i]++;
+			draw(y,x,i,0);
+			dfs(y,x+i,cnt+1);
+			draw(y,x,i,1);
+			m[i]--;
+		}
+	}
+
+	return ;
 }
 
 int main()
 {
-	for (int i = 1; i <= 5; i++)
-		v.push_back({ {i,i},5 });
-	for (int i = 0; i<10; i++)
+	for(int i =0; i < 10; i++)
 	{
-		for (int j = 0; j< 10; j++)
+		for(int j =0; j < 10; j++)
 		{
-			cin >> maps[i][j];
-			if (maps[i][j] == 0)
-				zeroCount++;
-			else
-				v2.push_back({ i,j });
+			cin>>ma[i][j];
 		}
 	}
-
-	if (zeroCount == 100)
-	{
-		cout << 0;
-		return 0;
-	}
-
-	for (const auto& i : v2)
-	{
-		go(i.first, i.second);
-	}
+	dfs(0,0,0);
+	cout<<(ret == 987654321? -1 : ret);
 }
